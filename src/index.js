@@ -9,7 +9,8 @@ const fs = require('fs')
 
 const extendConfig = function (api, conf) {
   // see if QENV is set
-  const qEnvName = process.env.QENV || api.ctx.dev ? 'development' : 'production'
+
+  const qEnvName = process.env.QENV || (api.ctx.dev ? 'development' : 'production')
 
   // split names into array
   const names = qEnvName.split('+')
