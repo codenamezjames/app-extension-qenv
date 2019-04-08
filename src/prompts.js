@@ -41,13 +41,7 @@ module.exports = function () {
       type: 'input',
       name: 'common_root_object',
       message: "What name would you like to use for your Common Root Object ('none' means to not use one)?",
-      default: "none"
-    },
-    {
-      type: 'confirm',
-      name: 'add_qenv_to_gitignore',
-      message: "For security, would you like your .quasar.env.json file automatically added to .gitignore?",
-      default: "Y"
+      default: 'none'
     }
   ]
 }

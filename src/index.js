@@ -10,21 +10,21 @@ const fs = require('fs')
 const extendConfig = function (api, conf) {
   // see if QENV is set
   if (!process.env.QENV) {
-    console.error(`! App Extension (qenv): missing QENV environment variable; skipping`)    
+    console.error(`! App Extension (qenv): missing QENV environment variable; skipping`)
     return
   }
 
   const qEnvName = process.env.QENV
 
   if (qEnvName === void 0 || qEnvName === '') {
-    console.error(`! App Extension (qenv): missing QENV environment variable; skipping`)    
+    console.error(`! App Extension (qenv): missing QENV environment variable; skipping`)
     return
   }
 
   // split names into array
   const names = qEnvName.split('+')
 
-  let envName = '.quasar.env.json'
+  let envName = 'env/quasar.env.js'
 
   // resolve the path to the file
   const envPath = api.resolve.app(envName)
@@ -38,8 +38,7 @@ const extendConfig = function (api, conf) {
   let envData
   try {
     envData = require(envPath)
-  }
-  catch(e) {
+  } catch (e) {
     console.error(`! App Extension (qenv): Error '${JSON.stringify(e)}'`)
     return
   }
@@ -49,12 +48,11 @@ const extendConfig = function (api, conf) {
   names.forEach((name) => {
     if (name in envData) {
       data = Object.assign(data, envData[name])
-    }
-    else {
+    } else {
       console.error(`! App Extension (qenv): Missing '${name}' from ${envName}; skipping`)
     }
   })
-  
+
   // make sure there is a build.env object
   if (!conf.build.env) {
     conf.build.env = {}
