@@ -9,17 +9,7 @@ const fs = require('fs')
 
 const extendConfig = function (api, conf) {
   // see if QENV is set
-  if (!process.env.QENV) {
-    console.error(`! App Extension (qenv): missing QENV environment variable; skipping`)
-    return
-  }
-
-  const qEnvName = process.env.QENV
-
-  if (qEnvName === void 0 || qEnvName === '') {
-    console.error(`! App Extension (qenv): missing QENV environment variable; skipping`)
-    return
-  }
+  const qEnvName = process.env.QENV || api.ctx.dev ? 'development' : 'production'
 
   // split names into array
   const names = qEnvName.split('+')
